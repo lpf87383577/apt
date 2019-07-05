@@ -31,9 +31,13 @@ import javax.tools.Diagnostic;
 @SupportedAnnotationTypes({"com.shinhoandroid.mvp.annotion.BindView"})//标注注解处理器支持的注解类型，就是我们刚才定义的接口Test，可以写入多个注解类型。
 public class AnnotationProcessor extends AbstractProcessor {
 
+    //日志相关的辅助类
     public Messager mMessager;
+    //元素相关的辅助类
     public Elements mElements;
+    //文件相关的辅助类
     public Filer mFiler;
+
     private Map<String, ClassCreatorProxy> mProxyMap = new HashMap<>();
 
     @Override
@@ -50,7 +54,7 @@ public class AnnotationProcessor extends AbstractProcessor {
             VariableElement variableElement = (VariableElement) element;
             TypeElement classElement = (TypeElement) variableElement.getEnclosingElement();
             String fullClassName = classElement.getQualifiedName().toString();
-
+            //看看是否在集合中有这个类了(没有这个类创建这个类信息)
             ClassCreatorProxy proxy = mProxyMap.get(fullClassName);
             if (proxy == null) {
                 proxy = new ClassCreatorProxy(mElements, classElement);
@@ -58,6 +62,8 @@ public class AnnotationProcessor extends AbstractProcessor {
             }
             BindView bindAnnotation = variableElement.getAnnotation(BindView.class);
             int id = bindAnnotation.value();
+
+            mMessager.printMessage(Diagnostic.Kind.NOTE, "processing-------"+id);
             proxy.putElement(id, variableElement);
         }
 

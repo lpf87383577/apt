@@ -13,7 +13,8 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.tv)
     TextView tv;
-
+    @BindView(R.id.tv2)
+    TextView tv2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         BindViewTools.bind(this);
 
         tv.setText("ViewBind");
-
+        tv2.setText("lpf---");
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

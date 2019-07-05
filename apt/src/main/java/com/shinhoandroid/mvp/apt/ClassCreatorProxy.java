@@ -20,12 +20,16 @@ public class ClassCreatorProxy {
     private TypeElement mTypeElement;
     private Map<Integer, VariableElement> mVariableElementMap = new HashMap<>();
 
-    public ClassCreatorProxy(Elements elementUtils, TypeElement classElement) {
+    public ClassCreatorProxy(Elements element, TypeElement classElement) {
         this.mTypeElement = classElement;
-        PackageElement packageElement = elementUtils.getPackageOf(mTypeElement);
+        //获取包信息
+        PackageElement packageElement = element.getPackageOf(mTypeElement);
+        //获取包名
         String packageName = packageElement.getQualifiedName().toString();
+        //获取类名
         String className = mTypeElement.getSimpleName().toString();
         this.mPackageName = packageName;
+        //生成类的类名
         this.mBindingClassName = className + "_ViewBinding";
     }
 
